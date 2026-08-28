@@ -106,9 +106,17 @@ def predict():
         image_bytes = file.read()
         processed = prepare_image(image_bytes)
 
-        predictions = model.predict(processed, verbose=0)[0]
-        top_idx = int(np.argmax(predictions))
-        confidence = float(predictions[top_idx])
+       print("Starting model prediction...", flush=True)
+
+try:
+    predictions = model.predict(processed, verbose=0)[0]
+    print("Model prediction completed.", flush=True)
+except Exception as e:
+    print(f"MODEL PREDICTION ERROR: {repr(e)}", flush=True)
+    return jsonify({"error": f"Model prediction failed: {str(e)}"}), 500
+
+    top_idx = int(np.argmax(predictions))
+    confidence = float(predictions[top_idx])
 
         raw_label = class_names[top_idx]
         label_info = format_label(raw_label)
