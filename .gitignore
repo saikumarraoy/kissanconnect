@@ -7,6 +7,7 @@ __pycache__/
 venv/
 .venv/
 env/
+tflite_venv/
 
 # Jupyter
 .ipynb_checkpoints/
