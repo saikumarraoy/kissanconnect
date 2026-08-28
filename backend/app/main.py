@@ -9,6 +9,8 @@ import numpy as np
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from PIL import Image
+from pillow_heif import register_heif_opener
+register_heif_opener()
 try:
     # The lightweight production runtime avoids loading full TensorFlow on Render.
     from tflite_runtime.interpreter import Interpreter
@@ -19,8 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MODEL_PATH = os.path.join(BASE_DIR, "models", "kissanconnect_model.tflite")
 CLASS_NAMES_PATH = os.path.join(BASE_DIR, "models", "class_names.json")
 IMG_SIZE = (224, 224)
-ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg"}
-
+ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "webp", "heic", "heif", "bmp", "gif"}
 app = Flask(__name__)
 frontend_url = os.environ.get("FRONTEND_URL")
 CORS(app, origins=[frontend_url] if frontend_url else "*")
