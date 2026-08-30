@@ -7,6 +7,7 @@ export default function App() {
   const [status, setStatus] = useState('idle') // idle | analyzing | done | error
   const [result, setResult] = useState(null)
   const [errorMsg, setErrorMsg] = useState('')
+  const [imagePreviewFailed, setImagePreviewFailed] = useState(false)
   const [backendUp, setBackendUp] = useState(null)
   const fileInputRef = useRef(null)
 
@@ -100,7 +101,20 @@ export default function App() {
             </svg>
 
             {imagePreview ? (
-              <img src={imagePreview} alt="Uploaded leaf" className="preview-img" />
+                 <>
+                 <img
+                src={imagePreview}
+                alt="Uploaded leaf"
+                className="preview-img"
+                onError={(e) => { e.target.style.display = 'none'; setImagePreviewFailed(true) }}
+                            />
+              {imagePreviewFailed && (
+                <div className="drop-hint">
+                  <span className="drop-icon">📄</span>
+                  <span>Photo selected — your browser can't<br />preview this format, but scanning still works</span>
+                </div>
+              )}
+              </>
             ) : (
               <div className="drop-hint">
                 <span className="drop-icon">🍃</span>
