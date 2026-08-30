@@ -128,7 +128,6 @@ export default function App() {
           <input
             ref={fileInputRef}
             type="file"
-            accept="image/png, image/jpeg, image/webp, image/heic, image/heif, image/bmp, image/gif, .heic, .heif"
             onChange={onSelect}
             hidden
           />
