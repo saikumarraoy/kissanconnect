@@ -15,7 +15,8 @@ export default function App() {
   }, [])
 
   const handleFile = useCallback((file) => {
-    if (!file || !file.type.startsWith('image/')) return
+   const isImageType = file &&        (file.type.startsWith('image/') || /\. (heic|heif|webp|bmp|gif)$/i.test(file.name))
+    if (!isImageType) return
     setImageFile(file)
     setImagePreview(URL.createObjectURL(file))
     setStatus('idle')
